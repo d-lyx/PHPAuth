@@ -593,7 +593,7 @@ class Auth
         $query = "DELETE FROM {$this->config->table_sessions} WHERE uid = :uid";
         $query_prepared = $this->dbh->prepare($query);
         $query_prepared->execute(['uid' => $uid]);
-        $this->removeCookie();
+        //$this->removeCookie();
 
         return $query_prepared->rowCount() > 0;
     }
@@ -609,7 +609,7 @@ class Auth
         $query = "DELETE FROM {$this->config->table_sessions} WHERE hash = :hash";
         $query_prepared = $this->dbh->prepare($query);
         $query_prepared->execute(['hash' => $hash]);
-        $this->removeCookie();
+        //$this->removeCookie();
 
         return $query_prepared->rowCount() == 1;
     }
