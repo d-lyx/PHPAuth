@@ -118,7 +118,8 @@ The database table `config` contains multiple parameters allowing you to configu
 * `cookie_http` : the [HTTP only protocol](https://owasp.org/www-community/HttpOnly) setting of the session cookie, true by default, do not change unless necessary
 * `cookie_remember` : the time that a user will remain logged in for when ticking "remember me" on login. Must respect PHP's [strtotime](http://php.net/manual/en/function.strtotime.php) format.
 * `cookie_forget` : the time a user will remain logged in when not ticking "remember me" on login.  Must respect PHP's [strtotime](http://php.net/manual/en/function.strtotime.php) format.
-* `cookie_renew` : the maximum time difference between session expiration and last page load before allowing the session to be renewed. Must respect PHP's [strtotime](http://php.net/manual/en/function.strtotime.php) format.
+* `cookie_renew` : the maximum time difference between session expiration and last page load before allowing the session to be renewed. Must respect PHP`s [strtotime](http://php.net/manual/en/function.strtotime.php) format.
+* `days_for_automatic_password_expiration` : Automatic days for expiration of the password, it adds days to time() when creation or password change, for non expiring password, set this value to 0, as global parameter, or `days2expire` to configure per user basis at table `phpauth_users`
 * `allow_concurrent_sessions` : Allow a user to have multiple active sessions (boolean). If false (default), logging in will end any existing sessions.
 * `bcrypt_cost` : the algorithmic cost of the bcrypt hashing function, can be changed based on hardware capabilities
 * `smtp` : `0` to use sendmail for emails, `1` to use SMTP
@@ -137,12 +138,15 @@ The database table `config` contains multiple parameters allowing you to configu
 * `attempts_before_verify` : maximum amount of attempts to be made within `attack_mitigation_time` before requiring captcha. Default is `5`
 * `attempt_before_ban` : maximum amount of attempts to be made within `attack_mitigation_time` before temporally blocking the IP address. Default is `30`
 * `password_min_score` : the minimum score given by [zxcvbn](https://github.com/bjeavons/zxcvbn-php) that is allowed. Default is `3`
+* `default_jwt_iss` : the default issuer claim for jwt token
+* `default_jwt_aud` : the default audience claim for jwt token
 * `translation_source`: source of translation, possible values: 'sql' (data from <table_translations> will be used), 'php' (default, translations will be loaded from languages/*.php), 'ini' (will be used languages/*.ini files)
 * `table_translations` : name of the table with translation for all messages
 * `table_attempts` : name of the table with all attempts (default is 'phpauth_attempts')
 * `table_requests` : name of the table with all requests (default is 'phpauth_requests')
 * `table_sessions` : name of the table with all sessions (default is 'phpauth_sessions')
 * `table_users` : name of the table with all users (default is 'phpauth_users')
+* `table_params` : name of the table where the description of the json parameters are configured, to be stored in `phpauth_users.params`, if you want to replicate old behavior leave empty, default is `phpauth_params`
 * `table_emails_banned` : name of the table with all banned email domains (default is 'phpauth_emails_banned')
 * `recaptcha_enabled`: 1 for Google reCaptcha enabled, 0 - disabled (default)
 * `recaptcha_site_key`: string, contains public reCaptcha key (for javascripts)
@@ -375,8 +379,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/hajro92"><img src="https://avatars0.githubusercontent.com/u/15570002?v=4" width="100px;" alt=""/><br /><sub><b>Hajrudin</b></sub></a><br /><a href="https://github.com/PHPAuth/PHPAuth/commits?author=hajro92" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/Conver"><img src="https://avatars1.githubusercontent.com/u/6231022?v=4" width="100px;" alt=""/><br /><sub><b>conver</b></sub></a><br /><a href="https://github.com/PHPAuth/PHPAuth/commits?author=conver" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/louis123562"><img src="https://avatars1.githubusercontent.com/u/36068395?v=4" width="100px;" alt=""/><br /><sub><b>louis123562</b></sub></a><br /><a href="https://github.com/PHPAuth/PHPAuth/commits?author=louis123562" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://www.ifscore.info"><img src="https://avatars1.githubusercontent.com/u/4574233?v=4" width="100px;" alt=""/><br /><sub><b>ANDRES TELLO</b></sub></a><br /><a href="https://github.com/PHPAuth/PHPAuth/commits?author=Criptos" title="Code">💻</a></td>
-    <td align="center"><a href="https://张成林.中国"><img src="https://avatars2.githubusercontent.com/u/30773389?v=4" width="100px;" alt=""/><br /><sub><b>张成林</b></sub></a><br /><a href="https://github.com/PHPAuth/PHPAuth/commits?author=zhangchenglin" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.ifscore.info"><img src="https://avatars1.githubusercontent.com/u/4574233?v=4" width="100px;" alt=""/><br /><sub><b>Criptos</b></sub></a><br /><a href="https://github.com/PHPAuth/PHPAuth/commits?author=Criptos" title="Code">💻</a></td>
   </tr>
 </table>
 
