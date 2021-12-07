@@ -32,6 +32,7 @@ class Config
      * @param string|array $config_source -- declare source of config - table name, filepath or data-array
      * @param string $config_type -- default empty (means config in SQL table phpauth_config), possible values: 'sql', 'ini', 'array'
      * @param string $config_site_language -- declare site language, empty value means 'en_GB'
+     * @throws PDOException if the config table is not present in database
      */
     public function __construct(PDO $dbh, $config_source = null, string $config_type = '', string $config_site_language = '')
     {
@@ -91,18 +92,15 @@ class Config
                 // determine config table
                 $this->config_table = (empty($config_source)) ? 'phpauth_config' : $config_source;
 
-                // load configuration
-                try {
-                    $configQuery = $this->dbh->query("SELECT `setting`, `value` FROM {$this->config_table};");
+                // load configuration               
+                $configQuery = $this->dbh->query("SELECT `setting`, `value` FROM {$this->config_table};");
 
-                    if ($configQuery instanceof PDOStatement) {
-                        $this->config = $configQuery->fetchAll(PDO::FETCH_KEY_PAIR);
-                    } else {
-                        throw new PDOException();
-                    }
-                } catch (PDOException $e) {
-                    die("PHPAuth: Config table `{$this->config_table}` NOT PRESENT in given database" . PHP_EOL);
+                if ($configQuery instanceof PDOStatement) {
+                    $this->config = $configQuery->fetchAll(PDO::FETCH_KEY_PAIR);
+                } else {
+                    throw new PDOException("PHPAuth: Config table `{$this->config_table}` NOT PRESENT in given database" . PHP_EOL);
                 }
+                
 
                 break;
             }
