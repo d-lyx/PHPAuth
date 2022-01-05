@@ -317,7 +317,7 @@ class Auth
             return $return;
         }
 
-        $addUser = $this->addUser($email, $password, $params, $use_email_activation);
+        $addUser = $this->addUser($email, $password,  $use_email_activation, $params);
 
         if ($addUser['error'] != 0) {
             $return['message'] = $addUser['message'];
@@ -765,7 +765,7 @@ class Auth
      * @param boolean $use_email_activation  -- activate email confirm or not
      * @return array
      */
-    protected function addUser($email, $password, $params = [], &$use_email_activation)
+    protected function addUser($email, $password, &$use_email_activation, $params = [])
     {
         $return['error'] = true;
 
